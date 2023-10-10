@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="content"></div>
+
+    <script src="data.js"></script>
+
+    <script>
+      // Задание 1
+      // 1. Поиск в интернете (бесплатные api примеры).
+      // 2. Найти любые данные, на произвольную тему.
+      // 3. Создать файл data.js.
+      // 4. Создать переменную которая будет хранить данные из публичных api.
+
+      fetch("https://dummyjson.com/users/9")
+        .then((response) => response.json())
+        .then((data) => {
+          const firstName = data.firstName;
+          const maidenName = data.maidenName;
+          const age = data.age;
+          console.log(
+            `First Name user id = 9: ${firstName}, Maiden Name: ${maidenName}, Age: ${age}`
+          );
+        })
+        .catch((error) => console.error(error));
+
+      // Задание 2
+      // 1. Создать файл index.html.
+      // 2. Подключить data.js.
+      // 3. Сформировать контент из данных (картинка загловок и параграф).
+      // 4. Добавить данный контент в вёрстку.
+      // 5. * Добавить стили при необходимости (по желанию).
+
+      const data = JSON.parse(animalsInfo);
+      const content = document.querySelector(".content");
+      const animals = document.createElement("div");
+      animals.classList.add("animals-content");
+
+      animals.style.display = "inline-block";
+      animals.style.flexWrap = "wrap";
+      animals.style.padding = "20px";
+      animals.style.border = "1px solid green";
+
+      data.forEach(({ name, address, description }) => {
+        const title = document.createElement("h1");
+        title.classList.add("animals-title");
+        title.textContent = name;
+
+        const img = document.createElement("img");
+        img.classList.add("animals-img");
+        img.src = address;
+        img.width = 300;
+
+        const parag = document.createElement("p");
+        parag.classList.add("animals-text");
+        parag.textContent = description;
+
+        animals.appendChild(title);
+        animals.appendChild(img);
+        animals.appendChild(parag);
+        content.appendChild(animals);
+      });
+    </script>
+  </body>
+</html>
